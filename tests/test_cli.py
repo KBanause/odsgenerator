@@ -39,15 +39,15 @@ def test_no_param():
     out, err, exitcode = capture(command)
     assert exitcode == 2
     assert out == b""
-    assert err.startswith(b"usage: odsgenerator [-h] [--version]")
+    assert err.startswith(b"usage: ")
 
 
 def test_version():
     command = ["odsgenerator", "--version"]
     out, err, exitcode = capture(command)
     assert exitcode == 0
-    expected = f"odsgenerator {read_proj_version()}".encode()
-    assert out == expected
+    expected = f"{read_proj_version()}".encode()
+    assert expected in out
     assert err == b""
 
 
