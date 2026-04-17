@@ -652,6 +652,7 @@ STYLE = "style"
 STYLES = "styles"
 DEFAULTS = "defaults"
 DEFAULT_TAB_PREFIX = "Tab"
+AUTOMATIC = "automatic"
 
 
 class ODSGenerator:
@@ -695,6 +696,7 @@ class ODSGenerator:
         for style_item in styles:
             name = style_item.get(NAME)
             definition = style_item.get(DEFINITION)
+            automatic = style_item.get(AUTOMATIC, True)
             style = Element.from_tag(definition)
             if name:
                 style.name = name
@@ -702,7 +704,7 @@ class ODSGenerator:
                 name = style.name
             self.styles_elements[name] = style
             if insert:
-                self.insert_style(name)
+                self.insert_style(name, automatic)
 
     def insert_style(self, name: str, automatic: bool = True) -> None:
         """Insert the named style into the ODF document."""
